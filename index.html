@@ -277,7 +277,6 @@
                         <label for="alasan">Alasan Pemburukan</label>
                         <select id="alasan" required>
                             <option value="" disabled selected>-- Pilih Alasan --</option>
-                            <option value="Ekonomi">Ekonomi</option>
                             <option value="Usaha Menurun">Usaha Menurun</option>
                             <option value="Usaha Bangkrut">Usaha Bangkrut atau Tidak Ada</option>
                             <option value="KTS">KTS</option>
@@ -334,6 +333,7 @@
 </div>
 
 <script>
+    // URL Web App Google Apps Script Anda yang baru
     const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzwCq-wPaLF-zEwhH9jHsUQOt2z7vVaQhofJFQAAgsPRkZUFE5FIFprFsol2hSk4apz/exec";
 
     // DATABASE MANTRI LENGKAP
@@ -406,10 +406,10 @@
         "00383931": { nama: "DEWI KURNIAWATI", unit: "TAWANGMANGU" }
     };
 
-    let daftarDebitur = []; // Array penampung data debitur secara massal
+    let daftarDebitur = []; 
     let currentWaktu = "";
 
-    // 1. Sinkronisasi Jam & Tanggal Sistem
+    // 1. Jam & Tanggal Terupdate Otomatis
     function updateClock() {
         const sekarang = new Date();
         const opsi = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
@@ -434,7 +434,7 @@
         }
     }
 
-    // 3. Navigasi Halaman Kerja
+    // 3. Navigasi Halaman
     function bukaHalamanAnalisa() {
         const appContainer = document.getElementById('appContainer');
         appContainer.classList.remove('mode-login');
@@ -476,7 +476,7 @@
         document.getElementById('charCount').innerText = `${sisa} karakter tersisa`;
     }
 
-    // 5. Logika Menyusun & Mengelola Tabel List Sementara (Kanan)
+    // 5. Pengelolaan Daftar Sementara (Kanan)
     function tambahDebiturKeDaftar() {
         const itemDebitur = {
             waktu: currentWaktu,
@@ -491,7 +491,7 @@
         daftarDebitur.push(itemDebitur);
         renderTabelDebitur();
 
-        // Reset form kiri setelah data berhasil dimasukkan ke kanan
+        // Reset Form Kiri
         document.getElementById('debiturForm').reset();
         document.getElementById('charCount').innerText = "300 karakter tersisa";
     }
@@ -526,10 +526,10 @@
         });
     }
 
-    // 6. Bulk Kirim Semua Data Sekaligus ke Google Sheets
+    // 6. Bulk Kirim Data
     function submitSemuaData() {
         if (daftarDebitur.length === 0) {
-            alert("Daftar debitur masih kosong! Masukkan minimal satu data debitur lewat form di sebelah kiri.");
+            alert("Daftar debitur masih kosong! Masukkan data debitur terlebih dahulu.");
             return;
         }
 
@@ -537,7 +537,6 @@
         btn.innerText = "Mengirim Semua Data (" + daftarDebitur.length + " Debitur)...";
         btn.disabled = true;
 
-        // Susun payload bulk data
         const payload = {
             pn: document.getElementById('personalNumber').value,
             mantri: document.getElementById('mantriName').value,
