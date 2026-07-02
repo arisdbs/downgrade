@@ -4,567 +4,366 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Downgrade Portofolio Mantri</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     <style>
-        /* Gaya Dasar & Efek Lembut di Mata */
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #f0f4f8;
-            color: #333;
-            margin: 0;
-            padding: 20px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            box-sizing: border-box;
-        }
-
-        .container {
-            background: #ffffff;
-            padding: 30px;
-            border-radius: 12px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.05);
-            width: 100%;
-            transition: max-width 0.4s ease-in-out;
-        }
-
-        /* Ukuran container dinamis berdasarkan halaman aktif */
-        .mode-login { max-width: 450px; }
-        .mode-workspace { max-width: 1200px; }
-
-        h2, h3 {
-            color: #2c3e50;
-            margin-top: 0;
-        }
-        h2 { text-align: center; margin-bottom: 5px; }
-
-        .datetime-container {
-            text-align: center;
-            font-size: 0.9rem;
-            color: #7f8c8d;
-            margin-bottom: 25px;
-            font-weight: 500;
-        }
-
-        .form-group {
-            margin-bottom: 18px;
-        }
-
-        label {
-            display: block;
-            margin-bottom: 8px;
-            font-weight: 600;
-            color: #34495e;
-        }
-
-        /* Input dengan Efek Hidup/3D Halus */
-        input[type="text"], input[type="number"], select, textarea {
-            width: 100%;
-            padding: 12px;
-            border: 1px solid #ccd1d9;
-            border-radius: 8px;
-            box-sizing: border-box;
-            background-color: #fdfdfd;
-            box-shadow: inset 0 2px 4px rgba(0,0,0,0.06);
-            transition: all 0.3s ease;
-            font-size: 1rem;
-        }
-
-        input:focus, select:focus, textarea:focus {
-            outline: none;
-            border-color: #3498db;
-            box-shadow: inset 0 2px 4px rgba(0,0,0,0.06), 0 0 8px rgba(52, 152, 219, 0.3);
-        }
-
-        input[readonly] {
-            background-color: #e9ecef;
-            color: #495057;
-            cursor: not-allowed;
-            box-shadow: none;
-        }
-
-        /* Tombol dengan Desain Hidup / 3D */
-        .btn-3d {
-            width: 100%;
-            padding: 14px;
-            font-size: 1.05rem;
-            font-weight: bold;
-            color: white;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: all 0.1s ease;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        .btn-blue {
-            background: #3498db;
-            border-bottom: 5px solid #2980b9;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-        }
-        .btn-blue:active {
-            border-bottom-width: 1px;
-            margin-top: 4px;
-            box-shadow: 0 1px 2px rgba(0,0,0,0.1);
-        }
-
-        .btn-green {
-            background: #2ecc71;
-            border-bottom: 5px solid #27ae60;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-        }
-        .btn-green:active {
-            border-bottom-width: 1px;
-            margin-top: 4px;
-            box-shadow: 0 1px 2px rgba(0,0,0,0.1);
-        }
-
-        .btn-orange {
-            background: #e67e22;
-            border-bottom: 5px solid #d35400;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-        }
-        .btn-orange:active {
-            border-bottom-width: 1px;
-            margin-top: 4px;
-            box-shadow: 0 1px 2px rgba(0,0,0,0.1);
-        }
-
-        /* Layout Workspace (Split 2 Kolom: Kiri & Kanan) */
-        .workspace {
-            display: grid;
-            grid-template-columns: 450px 1fr;
-            gap: 30px;
-            margin-top: 20px;
-        }
-
-        @media (max-width: 992px) {
-            .workspace { grid-template-columns: 1fr; }
-        }
-
-        /* Tabel List Debitur Sisi Kanan */
-        .preview-card {
-            background: #f8fafc;
-            border: 1px solid #e2e8f0;
-            border-top: 4px solid #3498db;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.02);
-        }
-
-        .preview-title {
-            font-size: 1.1rem;
-            font-weight: bold;
-            color: #2c3e50;
-            margin-bottom: 5px;
-        }
-
-        .mantri-info-summary {
-            font-size: 0.95rem;
-            color: #555;
-            margin-bottom: 15px;
-            border-bottom: 1px solid #e2e8f0;
-            padding-bottom: 8px;
-        }
-
-        .table-wrapper {
-            overflow-x: auto;
-            background: #fff;
-            border: 1px solid #e2e8f0;
-            border-radius: 6px;
-            margin-bottom: 20px;
-            max-height: 400px;
-            overflow-y: auto;
-        }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            font-size: 0.9rem;
-            text-align: left;
-        }
-
-        th, td {
-            padding: 10px 12px;
-            border-bottom: 1px solid #e2e8f0;
-            white-space: nowrap;
-        }
-
-        th {
-            background-color: #f1f5f9;
-            color: #475569;
-            font-weight: 600;
-            position: sticky;
-            top: 0;
-            z-index: 1;
-        }
-
-        tr:hover { background-color: #f8fafc; }
-
-        .btn-delete {
-            background: #e74c3c;
-            color: white;
-            border: none;
-            padding: 5px 8px;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 0.8rem;
-        }
-        .btn-delete:hover { background: #c0392b; }
-
-        .empty-row {
-            text-align: center;
-            color: #94a3b8;
-            padding: 20px;
-        }
-
-        .hidden { display: none !important; }
+      .hidden { display: none !important; }
     </style>
 </head>
-<body>
+<body class="bg-slate-100 min-h-screen p-4 md:p-8 flex items-center justify-center font-sans">
 
-<div id="appContainer" class="container mode-login">
-    <h2>Form Downgrade Portofolio</h2>
-    <div class="datetime-container" id="liveClock">Memuat waktu...</div>
-
-    <div id="pageLogin">
-        <div class="form-group">
-            <label for="personalNumber">Personal Number (PN)</label>
-            <input type="text" id="personalNumber" placeholder="Masukkan PN Anda..." oninput="cekPersonalNumber(this.value)">
+    <div id="appContainer" class="max-w-md w-full bg-white rounded-3xl shadow-xl border border-slate-100 p-6 md:p-8 space-y-6 transition-all duration-300">
+        
+        <div class="text-center space-y-1 border-b border-slate-100 pb-4">
+            <h1 class="text-2xl font-extrabold text-slate-800 tracking-tight">Form Downgrade Portofolio</h1>
+            <p id="liveClock" class="text-xs font-semibold text-slate-500 tracking-wide">Memuat waktu...</p>
         </div>
 
-        <div id="dataOtomatisPN" class="hidden">
-            <div class="form-group">
-                <label for="mantriName">Nama Mantri</label>
-                <input type="text" id="mantriName" readonly>
-            </div>
-            <div class="form-group">
-                <label for="unitName">Unit Kerja</label>
-                <input type="text" id="unitName" readonly>
-            </div>
-            <button type="button" class="btn-3d btn-blue" onclick="bukaHalamanAnalisa()">Analisa Debitur</button>
-        </div>
-    </div>
-
-    <div id="pageWorkspace" class="hidden">
-        <div class="workspace">
-            
-            <div class="workspace-left">
-                <h3>Input Analisa Debitur</h3>
-                <form id="debiturForm" onsubmit="event.preventDefault(); tambahDebiturKeDaftar();">
-                    <div class="form-group">
-                        <label for="nasabahName">Nama Nasabah</label>
-                        <input type="text" id="nasabahName" placeholder="Nama nasabah" required>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="noRekening">Nomor Rekening (Maks 15 Karakter)</label>
-                        <input type="text" id="noRekening" placeholder="Maks 15 angka rekening" maxlength="15" oninput="this.value=this.value.replace(/[^0-9]/g,'');" required>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="plafon">Plafon (Rp)</label>
-                        <input type="text" id="plafon" placeholder="Contoh: 50.000.000" onkeyup="formatRibuan(this)" required>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="outstanding">Outstanding (Rp)</label>
-                        <input type="text" id="outstanding" placeholder="Contoh: 45.500.000" onkeyup="formatRibuan(this)" required>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="alasan">Alasan Pemburukan</label>
-                        <select id="alasan" required>
-                            <option value="" disabled selected>-- Pilih Alasan --</option>
-                            <option value="Usaha Menurun">Usaha Menurun</option>
-                            <option value="Usaha Bangkrut">Usaha Bangkrut atau Tidak Ada</option>
-                            <option value="KTS">KTS</option>
-                            <option value="Lainnya">Lainnya</option>
-                        </select>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="deskripsi">Deskripsi / Penjelasan (Maks 300 Karakter)</label>
-                        <textarea id="deskripsi" rows="3" maxlength="300" placeholder="Jelaskan detail alasan pemburukan..." oninput="hitungKarakter(this)" required></textarea>
-                        <small style="color: #7f8c8d;" id="charCount">300 karakter tersisa</small>
-                    </div>
-
-                    <button type="submit" class="btn-3d btn-orange">Masukkan ke Daftar</button>
-                </form>
+        <div id="pageLogin" class="space-y-4">
+            <div>
+                <label for="personalNumber" class="block text-xs font-bold text-slate-600 mb-1">Personal Number (PN)</label>
+                <input type="text" id="personalNumber" placeholder="Masukkan PN Anda..." oninput="cekPersonalNumber(this.value)" class="w-full bg-white border border-slate-300 px-3 py-2.5 rounded-xl text-sm focus:ring-2 focus:ring-amber-500 focus:border-amber-500 focus:outline-none transition-all">
             </div>
 
-            <div class="workspace-right">
-                <div class="preview-card">
-                    <div class="preview-title">Daftar Debitur yang Akan Didowngrade</div>
-                    <div class="mantri-info-summary">
-                        <strong>Petugas:</strong> <span id="pMantri">-</span> | <strong>Unit:</strong> <span id="pUnit">-</span>
-                    </div>
-
-                    <div class="table-wrapper">
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th>No</th>
-                                    <th>Nama Nasabah</th>
-                                    <th>No. Rekening</th>
-                                    <th>Plafon</th>
-                                    <th>Outstanding</th>
-                                    <th>Alasan</th>
-                                    <th>Deskripsi</th>
-                                    <th>Aksi</th>
-                                </tr>
-                            </thead>
-                            <tbody id="debiturTableBody">
-                                <tr>
-                                    <td colspan="8" class="empty-row">Belum ada data debitur dimasukkan.</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                    
-                    <button type="button" class="btn-3d btn-green" id="submitBtn" onclick="submitSemuaData()">Submit Semua Data ke Spreadsheet</button>
-                    <button type="button" class="btn-3d btn-blue" style="background:#95a5a6; border-bottom-color:#7f8c8d; margin-top:10px;" onclick="kembaliKeLogin()">Batal & Keluar</button>
+            <div id="dataOtomatisPN" class="hidden space-y-4 pt-2 border-t border-dashed border-slate-200">
+                <div>
+                    <label class="block text-xs font-bold text-slate-600 mb-1">Nama Mantri</label>
+                    <input type="text" id="mantriName" readonly class="w-full bg-slate-50 border border-slate-200 px-3 py-2 rounded-xl text-sm font-semibold text-slate-700 focus:outline-none cursor-not-allowed">
                 </div>
+                <div>
+                    <label class="block text-xs font-bold text-slate-600 mb-1">Unit Kerja</label>
+                    <input type="text" id="unitName" readonly class="w-full bg-slate-50 border border-slate-200 px-3 py-2 rounded-xl text-sm font-semibold text-slate-700 focus:outline-none cursor-not-allowed">
+                </div>
+                <button type="button" onclick="bukaHalamanAnalisa()" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-4 rounded-xl shadow-md transition-all cursor-pointer text-sm uppercase tracking-wider transform active:scale-98">
+                    Analisa Debitur →
+                </button>
             </div>
+        </div>
 
+        <div id="pageWorkspace" class="hidden">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+                
+                <div class="lg:col-span-4 bg-slate-50/60 p-5 md:p-6 rounded-2xl border border-slate-100 space-y-4">
+                    <h2 class="text-lg font-bold text-slate-800 border-b border-slate-200 pb-2">Input Analisa Debitur</h2>
+                    <form id="debiturForm" onsubmit="event.preventDefault(); tambahDebiturKeDaftar();" class="space-y-3">
+                        <div>
+                            <label class="block text-xs font-bold text-slate-600 mb-1">Nama Nasabah</label>
+                            <input type="text" id="nasabahName" placeholder="Nama nasabah" required class="w-full bg-white border border-slate-300 px-3 py-2 rounded-xl text-sm focus:ring-2 focus:ring-amber-500 focus:border-amber-500 focus:outline-none transition-all">
+                        </div>
+
+                        <div>
+                            <label class="block text-xs font-bold text-slate-600 mb-1">Nomor Rekening (Maks 15 Digit)</label>
+                            <input type="text" id="noRekening" placeholder="Maks 15 angka rekening" maxlength="15" oninput="this.value=this.value.replace(/[^0-9]/g,'');" required class="w-full bg-white border border-slate-300 px-3 py-2 rounded-xl text-sm focus:ring-2 focus:ring-amber-500 focus:border-amber-500 focus:outline-none transition-all">
+                        </div>
+
+                        <div>
+                            <label class="block text-xs font-bold text-slate-600 mb-1">Plafon (Rp)</label>
+                            <input type="text" id="plafon" placeholder="Contoh: 50.000.000" onkeyup="formatRibuan(this)" required class="w-full bg-white border border-slate-300 px-3 py-2 rounded-xl text-sm focus:ring-2 focus:ring-amber-500 focus:border-amber-500 focus:outline-none transition-all">
+                        </div>
+
+                        <div>
+                            <label class="block text-xs font-bold text-slate-600 mb-1">Outstanding (Rp)</label>
+                            <input type="text" id="outstanding" placeholder="Contoh: 45.500.000" onkeyup="formatRibuan(this)" required class="w-full bg-white border border-slate-300 px-3 py-2 rounded-xl text-sm focus:ring-2 focus:ring-amber-500 focus:border-amber-500 focus:outline-none transition-all">
+                        </div>
+
+                        <div>
+                            <label class="block text-xs font-bold text-slate-600 mb-1">Alasan Pemburukan</label>
+                            <select id="alasan" required class="w-full bg-white border border-slate-300 px-3 py-2 rounded-xl text-sm focus:ring-2 focus:ring-amber-500 focus:border-amber-500 focus:outline-none transition-all cursor-pointer">
+                                <option value="" disabled selected>-- Pilih Alasan --</option>
+                                <option value="Usaha Menurun">Usaha Menurun</option>
+                                <option value="Usaha Bangkrut">Usaha Bangkrut / Tidak Ada</option>
+                                <option value="KTS">KTS</option>
+                                <option value="Lainnya">Lainnya</option>
+                            </select>
+                        </div>
+
+                        <div>
+                            <div class="flex justify-between items-center mb-1">
+                                <label class="block text-xs font-bold text-slate-600">Deskripsi / Penjelasan (Maks 300 Karakter)</label>
+                                <span id="charCount" class="text-[10px] text-slate-400 font-medium">300 karakter tersisa</span>
+                            </div>
+                            <textarea id="deskripsi" maxlength="300" oninput="hitungKarakter(this)" placeholder="Jelaskan detail alasan pemburukan..." rows="3" required class="w-full bg-white border border-slate-300 p-3 rounded-xl text-sm focus:ring-2 focus:ring-amber-500 focus:border-amber-500 focus:outline-none transition-all resize-none"></textarea>
+                        </div>
+
+                        <button type="submit" class="w-full bg-orange-500 hover:bg-orange-600 text-white font-bold py-3 px-4 rounded-xl shadow-md hover:shadow-lg transition-all cursor-pointer text-sm tracking-wide transform active:scale-98 uppercase">
+                            Masukkan ke Daftar
+                        </button>
+                    </form>
+                </div>
+
+                <div class="lg:col-span-8 space-y-4 flex flex-col justify-between h-full">
+                    <div class="bg-white border border-slate-200 rounded-2xl p-5 md:p-6 shadow-sm space-y-4 flex-1">
+                        <div>
+                            <h2 class="text-lg font-bold text-slate-800">Daftar Debitur yang Akan Didowngrade</h2>
+                            <div class="text-xs text-slate-500 mt-1 bg-slate-50 p-2 rounded-lg inline-block border border-slate-100">
+                                Petugas: <span id="pMantri" class="font-bold text-slate-700">-</span> &nbsp;|&nbsp; Unit: <span id="pUnit" class="font-bold text-slate-700">-</span>
+                            </div>
+                        </div>
+
+                        <div class="overflow-x-auto border border-slate-100 rounded-xl">
+                            <table class="w-full text-xs text-left border-collapse min-w-[750px]">
+                                <thead>
+                                    <tr class="bg-slate-50 text-slate-700 font-bold border-b border-slate-200">
+                                        <th class="p-3 text-center w-12">No</th>
+                                        <th class="p-3">Nama Nasabah</th>
+                                        <th class="p-3">No. Rekening</th>
+                                        <th class="p-3">Plafon</th>
+                                        <th class="p-3">Outstanding</th>
+                                        <th class="p-3">Alasan</th>
+                                        <th class="p-3 max-w-[180px]">Deskripsi</th>
+                                        <th class="p-3 text-center w-16">Aksi</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="debiturTableBody" class="divide-y divide-slate-100">
+                                    <tr>
+                                        <td colspan="8" class="text-center py-8 text-slate-400 italic bg-slate-50/30">Belum ada data debitur dimasukkan.</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <div class="space-y-2 pt-2">
+                        <button type="button" id="submitBtn" onclick="submitSemuaData()" class="w-full bg-emerald-500 hover:bg-emerald-600 text-white font-bold py-3 px-6 rounded-xl shadow-md hover:shadow-lg transition-all cursor-pointer text-sm tracking-wide text-center uppercase block transform active:scale-98">
+                            Submit Semua Data ke Spreadsheet
+                        </button>
+                        <button type="button" onclick="kembaliKeLogin()" class="w-full bg-slate-400 hover:bg-slate-500 text-white font-semibold py-3 px-6 rounded-xl transition-all cursor-pointer text-sm tracking-wide text-center uppercase block transform active:scale-98">
+                            Batal & Keluar
+                        </button>
+                    </div>
+                </div>
+
+            </div>
         </div>
     </div>
-</div>
 
-<script>
-    // URL Web App Google Apps Script Anda yang baru
-    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzwCq-wPaLF-zEwhH9jHsUQOt2z7vVaQhofJFQAAgsPRkZUFE5FIFprFsol2hSk4apz/exec";
+    <script>
+        // URL Web App Google Apps Script Anda yang baru
+        const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzwCq-wPaLF-zEwhH9jHsUQOt2z7vVaQhofJFQAAgsPRkZUFE5FIFprFsol2hSk4apz/exec";
 
-    // DATABASE MANTRI LENGKAP
-    const databaseMantri = {
-        "00167380": { nama: "REY HARIO JENTHARA", unit: "JATIPURO" },
-        "00202635": { nama: "AHMAD SIDIQ", unit: "JATIPURO" },
-        "00211565": { nama: "ADI ATMIKA FAISAL SATOSO", unit: "JATIPURO" },
-        "00236563": { nama: "DICKI EKA PRASETYO", unit: "JATIPURO" },
-        "00337369": { nama: "BAYU KURNIAWAN AJI", unit: "JATIPURO" },
-        "00344407": { nama: "MEILINA FIKA RINANDA", unit: "JATIPURO" },
-        "00385705": { nama: "ALAMSYAH FERI TARNANDO", unit: "JATIPURO" },
-        "00053729": { nama: "ANDRIAN RUDIANTO", unit: "JATIYOSO" },
-        "00160259": { nama: "ANGGIT WIBOWO", unit: "JATIYOSO" },
-        "00177223": { nama: "ROHMAT WIDIANTO", unit: "JATIYOSO" },
-        "00190798": { nama: "WAHYU DODY SHEPTIAN", unit: "JATIYOSO" },
-        "00251161": { nama: "SIDIQ ROCHMADI", unit: "JATIYOSO" },
-        "00344227": { nama: "DWI WIDYASWORO", unit: "JATIYOSO" },
-        "00128200": { nama: "DOSI ANDRIAS", unit: "JUMANTONO" },
-        "00161932": { nama: "SEPTIN SURYANI", unit: "JUMANTONO" },
-        "00202651": { nama: "RONI KUSNANTO", unit: "JUMANTONO" },
-        "00202655": { nama: "ANITA YANUARI", unit: "JUMANTONO" },
-        "00236559": { nama: "YUANNIDA YOLANDA SAPUTRI", unit: "JUMANTONO" },
-        "00337365": { nama: "WAHYU CATUR TRIYONO", unit: "JUMANTONO" },
-        "00383932": { nama: "BAMBANG SETIYAWAN", unit: "JUMANTONO" },
-        "00384838": { nama: "DENI SETYAWAN", unit: "JUMANTONO" },
-        "00393162": { nama: "PERDANA YULIAN", unit: "JUMANTONO" },
-        "00053736": { nama: "HENDRAWAN BUDI MULYATMO", unit: "JUMAPOLO" },
-        "00122323": { nama: "ADI NUR ROCHIM", unit: "JUMAPOLO" },
-        "00191516": { nama: "FEBRIANA MURTININGSIH", unit: "JUMAPOLO" },
-        "00224313": { nama: "DAHLIA EKOWATI", unit: "JUMAPOLO" },
-        "00344230": { nama: "INDRI SULISTYAWATI", unit: "JUMAPOLO" },
-        "00383934": { nama: "ARI PURNAMA AGUNG", unit: "JUMAPOLO" },
-        "00398791": { nama: "HASNAN HABIBIE", unit: "JUMAPOLO" },
-        "00061753": { nama: "ENDAH PRANANDARI", unit: "KARANGPANDAN" },
-        "00167712": { nama: "DIDIET ADITYO", unit: "KARANGPANDAN" },
-        "00177221": { nama: "BONUS WIBOWO BRAM HARTYO", unit: "KARANGPANDAN" },
-        "00190825": { nama: "SUTARKO", unit: "KARANGPANDAN" },
-        "00251157": { nama: "UTAMI NUR DEWATI", unit: "KARANGPANDAN" },
-        "00337370": { nama: "ANDIK SAPUTRA", unit: "KARANGPANDAN" },
-        "00356139": { nama: "SEPTA HAYUMA MAULA", unit: "KARANGPANDAN" },
-        "00160208": { nama: "ARI PRIHATIN CAHYO WIBOWO", unit: "MATESIH" },
-        "00160254": { nama: "HUSYAIN RIFAI", unit: "MATESIH" },
-        "00167385": { nama: "FAJAR NUGROHO BUDI HASTO", unit: "MATESIH" },
-        "00191515": { nama: "ARIF SETIAWAN", unit: "MATESIH" },
-        "00236556": { nama: "RESPATI WAHYU BASKARA", unit: "MATESIH" },
-        "00248396": { nama: "ANTAWENI MAULIDHA PANGESTU RAH", unit: "MATESIH" },
-        "00259896": { nama: "FARID ZAINAL ARIFIN", unit: "MATESIH" },
-        "00402623": { nama: "LUY FIKRI HANAFI", unit: "MATESIH" },
-        "00089192": { nama: "RIZA DAMAYANTI", unit: "MOJOLABAN" },
-        "00122142": { nama: "NOVE AGUNG PRASETYO", unit: "MOJOLABAN" },
-        "00138383": { nama: "JENDRAWAN BHAKTI NAGRI", unit: "MOJOLABAN" },
-        "00152435": { nama: "IGNATIUS SIGIT NUGROHO", unit: "MOJOLABAN" },
-        "00160207": { nama: "TRI MARGONO", unit: "MOJOLABAN" },
-        "00191511": { nama: "ANDIKA PRATAMA", unit: "MOJOLABAN" },
-        "00202647": { nama: "IDAM CAHYO NUGROHO", unit: "MOJOLABAN" },
-        "00202678": { nama: "INEKE FEBRIANA HERMAWATI", unit: "MOJOLABAN" },
-        "00290338": { nama: "VITA ASTARINA", unit: "MOJOLABAN" },
-        "00384840": { nama: "NIKITA EPRILIAN PANGESTU", unit: "MOJOLABAN" },
-        "00236554": { nama: "RIFQI BAGUS SATRIA", unit: "NGADILUWIH" },
-        "00251158": { nama: "INDRA GUNAWAN", unit: "NGADILUWIH" },
-        "00404252": { nama: "NURUL AISYAH PURNAMA PUTRI", unit: "NGADILUWIH" },
-        "00059145": { nama: "EKO PUDJI WIDODO", unit: "TAWANGMANGU" },
-        "00167392": { nama: "MAHARDIKA PERMANA PUTRA", unit: "TAWANGMANGU" },
-        "00180997": { nama: "MUHAMAD ALEX TAUFIK", unit: "TAWANGMANGU" },
-        "00191514": { nama: "DIAZ USRIANINDYA SULISTIANTO", unit: "TAWANGMANGU" },
-        "00202641": { nama: "GHULAM CHALIMI", unit: "TAWANGMANGU" },
-        "00202648": { nama: "IWAN KURNIAWAN", unit: "TAWANGMANGU" },
-        "00248135": { nama: "SUTRISNO", unit: "TAWANGMANGU" },
-        "00344233": { nama: "WINNA KARFINNA", unit: "TAWANGMANGU" },
-        "00383931": { nama: "DEWI KURNIAWATI", unit: "TAWANGMANGU" }
-    };
-
-    let daftarDebitur = []; 
-    let currentWaktu = "";
-
-    // 1. Jam & Tanggal Terupdate Otomatis
-    function updateClock() {
-        const sekarang = new Date();
-        const opsi = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
-        const tanggalStr = sekarang.toLocaleDateString('id-ID', opsi);
-        const jamStr = sekarang.toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
-        
-        currentWaktu = `${tanggalStr} | ${jamStr} WIB`;
-        document.getElementById('liveClock').innerText = currentWaktu;
-    }
-    setInterval(updateClock, 1000);
-    updateClock();
-
-    // 2. Validasi Personal Number
-    function cekPersonalNumber(pnValue) {
-        const dataBox = document.getElementById('dataOtomatisPN');
-        if (databaseMantri[pnValue]) {
-            document.getElementById('mantriName').value = databaseMantri[pnValue].nama;
-            document.getElementById('unitName').value = databaseMantri[pnValue].unit;
-            dataBox.classList.remove('hidden');
-        } else {
-            dataBox.classList.add('hidden');
-        }
-    }
-
-    // 3. Navigasi Halaman
-    function bukaHalamanAnalisa() {
-        const appContainer = document.getElementById('appContainer');
-        appContainer.classList.remove('mode-login');
-        appContainer.classList.add('mode-workspace');
-        
-        document.getElementById('pageLogin').classList.add('hidden');
-        document.getElementById('pageWorkspace').classList.remove('hidden');
-        
-        document.getElementById('pMantri').innerText = `${document.getElementById('personalNumber').value} / ${document.getElementById('mantriName').value}`;
-        document.getElementById('pUnit').innerText = document.getElementById('unitName').value;
-        renderTabelDebitur();
-    }
-
-    function kembaliKeLogin() {
-        if (daftarDebitur.length > 0) {
-            if (!confirm("Daftar debitur belum di-submit. Keluar akan menghapus data sementara?")) return;
-        }
-        const appContainer = document.getElementById('appContainer');
-        appContainer.classList.remove('mode-workspace');
-        appContainer.classList.add('mode-login');
-        
-        document.getElementById('pageWorkspace').classList.add('hidden');
-        document.getElementById('pageLogin').classList.remove('hidden');
-        document.getElementById('debiturForm').reset();
-        document.getElementById('personalNumber').value = "";
-        document.getElementById('dataOtomatisPN').classList.add('hidden');
-        daftarDebitur = [];
-    }
-
-    // 4. Formatter Ribuan & Hitung Karakter
-    function formatRibuan(input) {
-        let value = input.value.replace(/[^\d]/g, "");
-        if (value === "") { input.value = ""; return; }
-        input.value = Number(value).toLocaleString('id-ID');
-    }
-
-    function hitungKarakter(textarea) {
-        let sisa = 300 - textarea.value.length;
-        document.getElementById('charCount').innerText = `${sisa} karakter tersisa`;
-    }
-
-    // 5. Pengelolaan Daftar Sementara (Kanan)
-    function tambahDebiturKeDaftar() {
-        const itemDebitur = {
-            waktu: currentWaktu,
-            nasabah: document.getElementById('nasabahName').value,
-            rekening: document.getElementById('noRekening').value,
-            plafon: document.getElementById('plafon').value,
-            outstanding: document.getElementById('outstanding').value,
-            alasan: document.getElementById('alasan').value,
-            deskripsi: document.getElementById('deskripsi').value
+        // DATABASE MANTRI LENGKAP
+        const databaseMantri = {
+            "00167380": { nama: "REY HARIO JENTHARA", unit: "JATIPURO" },
+            "00202635": { nama: "AHMAD SIDIQ", unit: "JATIPURO" },
+            "00211565": { nama: "ADI ATMIKA FAISAL SATOSO", unit: "JATIPURO" },
+            "00236563": { nama: "DICKI EKA PRASETYO", unit: "JATIPURO" },
+            "00337369": { nama: "BAYU KURNIAWAN AJI", unit: "JATIPURO" },
+            "00344407": { nama: "MEILINA FIKA RINANDA", unit: "JATIPURO" },
+            "00385705": { nama: "ALAMSYAH FERI TARNANDO", unit: "JATIPURO" },
+            "00053729": { nama: "ANDRIAN RUDIANTO", unit: "JATIYOSO" },
+            "00160259": { nama: "ANGGIT WIBOWO", unit: "JATIYOSO" },
+            "00177223": { nama: "ROHMAT WIDIANTO", unit: "JATIYOSO" },
+            "00190798": { nama: "WAHYU DODY SHEPTIAN", unit: "JATIYOSO" },
+            "00251161": { nama: "SIDIQ ROCHMADI", unit: "JATIYOSO" },
+            "00344227": { nama: "DWI WIDYASWORO", unit: "JATIYOSO" },
+            "00128200": { nama: "DOSI ANDRIAS", unit: "JUMANTONO" },
+            "00161932": { nama: "SEPTIN SURYANI", unit: "JUMANTONO" },
+            "00202651": { nama: "RONI KUSNANTO", unit: "JUMANTONO" },
+            "00202655": { nama: "ANITA YANUARI", unit: "JUMANTONO" },
+            "00236559": { nama: "YUANNIDA YOLANDA SAPUTRI", unit: "JUMANTONO" },
+            "00337365": { nama: "WAHYU CATUR TRIYONO", unit: "JUMANTONO" },
+            "00383932": { nama: "BAMBANG SETIYAWAN", unit: "JUMANTONO" },
+            "00384838": { nama: "DENI SETYAWAN", unit: "JUMANTONO" },
+            "00393162": { nama: "PERDANA YULIAN", unit: "JUMANTONO" },
+            "00053736": { nama: "HENDRAWAN BUDI MULYATMO", unit: "JUMAPOLO" },
+            "00122323": { nama: "ADI NUR ROCHIM", unit: "JUMAPOLO" },
+            "00191516": { nama: "FEBRIANA MURTININGSIH", unit: "JUMAPOLO" },
+            "00224313": { nama: "DAHLIA EKOWATI", unit: "JUMAPOLO" },
+            "00344230": { nama: "INDRI SULISTYAWATI", unit: "JUMAPOLO" },
+            "00383934": { nama: "ARI PURNAMA AGUNG", unit: "JUMAPOLO" },
+            "00398791": { nama: "HASNAN HABIBIE", unit: "JUMAPOLO" },
+            "00061753": { nama: "ENDAH PRANANDARI", unit: "KARANGPANDAN" },
+            "00167712": { nama: "DIDIET ADITYO", unit: "KARANGPANDAN" },
+            "00177221": { nama: "BONUS WIBOWO BRAM HARTYO", unit: "KARANGPANDAN" },
+            "00190825": { nama: "SUTARKO", unit: "KARANGPANDAN" },
+            "00251157": { nama: "UTAMI NUR DEWATI", unit: "KARANGPANDAN" },
+            "00337370": { nama: "ANDIK SAPUTRA", unit: "KARANGPANDAN" },
+            "00356139": { nama: "SEPTA HAYUMA MAULA", unit: "KARANGPANDAN" },
+            "00160208": { nama: "ARI PRIHATIN CAHYO WIBOWO", unit: "MATESIH" },
+            "00160254": { nama: "HUSYAIN RIFAI", unit: "MATESIH" },
+            "00167385": { nama: "FAJAR NUGROHO BUDI HASTO", unit: "MATESIH" },
+            "00191515": { nama: "ARIF SETIAWAN", unit: "MATESIH" },
+            "00236556": { nama: "RESPATI WAHYU BASKARA", unit: "MATESIH" },
+            "00248396": { nama: "ANTAWENI MAULIDHA PANGESTU RAH", unit: "MATESIH" },
+            "00259896": { nama: "FARID ZAINAL ARIFIN", unit: "MATESIH" },
+            "00402623": { nama: "LUY FIKRI HANAFI", unit: "MATESIH" },
+            "00089192": { nama: "RIZA DAMAYANTI", unit: "MOJOLABAN" },
+            "00122142": { nama: "NOVE AGUNG PRASETYO", unit: "MOJOLABAN" },
+            "00138383": { nama: "JENDRAWAN BHAKTI NAGRI", unit: "MOJOLABAN" },
+            "00152435": { nama: "IGNATIUS SIGIT NUGROHO", unit: "MOJOLABAN" },
+            "00160207": { nama: "TRI MARGONO", unit: "MOJOLABAN" },
+            "00191511": { nama: "ANDIKA PRATAMA", unit: "MOJOLABAN" },
+            "00202647": { nama: "IDAM CAHYO NUGROHO", unit: "MOJOLABAN" },
+            "00202678": { nama: "INEKE FEBRIANA HERMAWATI", unit: "MOJOLABAN" },
+            "00290338": { nama: "VITA ASTARINA", unit: "MOJOLABAN" },
+            "00384840": { nama: "NIKITA EPRILIAN PANGESTU", unit: "MOJOLABAN" },
+            "00236554": { nama: "RIFQI BAGUS SATRIA", unit: "NGADILUWIH" },
+            "00251158": { nama: "INDRA GUNAWAN", unit: "NGADILUWIH" },
+            "00404252": { nama: "NURUL AISYAH PURNAMA PUTRI", unit: "NGADILUWIH" },
+            "00059145": { nama: "EKO PUDJI WIDODO", unit: "TAWANGMANGU" },
+            "00167392": { nama: "MAHARDIKA PERMANA PUTRA", unit: "TAWANGMANGU" },
+            "00180997": { nama: "MUHAMAD ALEX TAUFIK", unit: "TAWANGMANGU" },
+            "00191514": { nama: "DIAZ USRIANINDYA SULISTIANTO", unit: "TAWANGMANGU" },
+            "00202641": { nama: "GHULAM CHALIMI", unit: "TAWANGMANGU" },
+            "00202648": { nama: "IWAN KURNIAWAN", unit: "TAWANGMANGU" },
+            "00248135": { nama: "SUTRISNO", unit: "TAWANGMANGU" },
+            "00344233": { nama: "WINNA KARFINNA", unit: "TAWANGMANGU" },
+            "00383931": { nama: "DEWI KURNIAWATI", unit: "TAWANGMANGU" }
         };
 
-        daftarDebitur.push(itemDebitur);
-        renderTabelDebitur();
+        let daftarDebitur = []; 
+        let currentWaktu = "";
 
-        // Reset Form Kiri
-        document.getElementById('debiturForm').reset();
-        document.getElementById('charCount').innerText = "300 karakter tersisa";
-    }
+        // Jam Real-time
+        function updateClock() {
+            const sekarang = new Date();
+            const opsi = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+            const tanggalStr = sekarang.toLocaleDateString('id-ID', opsi);
+            const jamStr = sekarang.toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+            
+            currentWaktu = `${tanggalStr} | ${jamStr} WIB`;
+            document.getElementById('liveClock').innerText = currentWaktu;
+        }
+        setInterval(updateClock, 1000);
+        updateClock();
 
-    function hapusDebitur(index) {
-        daftarDebitur.splice(index, 1);
-        renderTabelDebitur();
-    }
-
-    function renderTabelDebitur() {
-        const tbody = document.getElementById('debiturTableBody');
-        tbody.innerHTML = "";
-
-        if (daftarDebitur.length === 0) {
-            tbody.innerHTML = `<tr><td colspan="8" class="empty-row">Belum ada data debitur dimasukkan.</td></tr>`;
-            return;
+        function cekPersonalNumber(pnValue) {
+            const dataBox = document.getElementById('dataOtomatisPN');
+            if (databaseMantri[pnValue]) {
+                document.getElementById('mantriName').value = databaseMantri[pnValue].nama;
+                document.getElementById('unitName').value = databaseMantri[pnValue].unit;
+                dataBox.classList.remove('hidden');
+            } else {
+                dataBox.classList.add('hidden');
+            }
         }
 
-        daftarDebitur.forEach((item, index) => {
-            const tr = document.createElement('tr');
-            tr.innerHTML = `
-                <td>${index + 1}</td>
-                <td><strong>${item.nasabah}</strong></td>
-                <td>${item.rekening}</td>
-                <td>Rp ${item.plafon}</td>
-                <td>Rp ${item.outstanding}</td>
-                <td><span style="background:#e2e8f0; padding:2px 6px; border-radius:4px;">${item.alasan}</span></td>
-                <td style="max-width:200px; overflow:hidden; text-overflow:ellipsis;">${item.deskripsi}</td>
-                <td><button type="button" class="btn-delete" onclick="hapusDebitur(${index})">Hapus</button></td>
-            `;
-            tbody.appendChild(tr);
-        });
-    }
-
-    // 6. Bulk Kirim Data
-    function submitSemuaData() {
-        if (daftarDebitur.length === 0) {
-            alert("Daftar debitur masih kosong! Masukkan data debitur terlebih dahulu.");
-            return;
+        // Penataan ukuran lebar kontainer secara dinamis saat berpindah menu
+        function bukaHalamanAnalisa() {
+            const container = document.getElementById('appContainer');
+            container.className = "max-w-7xl w-full bg-white rounded-3xl shadow-xl border border-slate-100 p-6 md:p-8 space-y-8 transition-all duration-300";
+            
+            document.getElementById('pageLogin').classList.add('hidden');
+            document.getElementById('pageWorkspace').classList.remove('hidden');
+            
+            document.getElementById('pMantri').innerText = `${document.getElementById('personalNumber').value} / ${document.getElementById('mantriName').value}`;
+            document.getElementById('pUnit').innerText = document.getElementById('unitName').value;
+            renderTabelDebitur();
         }
 
-        const btn = document.getElementById('submitBtn');
-        btn.innerText = "Mengirim Semua Data (" + daftarDebitur.length + " Debitur)...";
-        btn.disabled = true;
-
-        const payload = {
-            pn: document.getElementById('personalNumber').value,
-            mantri: document.getElementById('mantriName').value,
-            unit: document.getElementById('unitName').value,
-            debiturList: daftarDebitur
-        };
-
-        fetch(SCRIPT_URL, {
-            method: 'POST',
-            mode: 'no-cors', 
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(payload)
-        })
-        .then(() => {
-            alert("Sukses! Seluruh " + daftarDebitur.length + " data debitur berhasil disimpan di Google Spreadsheet.");
+        function kembaliKeLogin() {
+            if (daftarDebitur.length > 0) {
+                if (!confirm("Daftar debitur belum di-submit. Keluar akan menghapus data sementara?")) return;
+            }
+            const container = document.getElementById('appContainer');
+            container.className = "max-w-md w-full bg-white rounded-3xl shadow-xl border border-slate-100 p-6 md:p-8 space-y-6 transition-all duration-300";
+            
+            document.getElementById('pageWorkspace').classList.add('hidden');
+            document.getElementById('pageLogin').classList.remove('hidden');
+            document.getElementById('debiturForm').reset();
+            document.getElementById('personalNumber').value = "";
+            document.getElementById('dataOtomatisPN').classList.add('hidden');
             daftarDebitur = [];
-            kembaliKeLogin();
-            btn.innerText = "Submit Semua Data ke Spreadsheet";
-            btn.disabled = false;
-        })
-        .catch(error => {
-            alert("Terjadi kendala saat mengirim data bulk.");
-            console.error(error);
-            btn.innerText = "Submit Semua Data ke Spreadsheet";
-            btn.disabled = false;
-        });
-    }
-</script>
+        }
 
+        function formatRibuan(input) {
+            let value = input.value.replace(/[^\d]/g, "");
+            if (value === "") { input.value = ""; return; }
+            input.value = Number(value).toLocaleString('id-ID');
+        }
+
+        function hitungKarakter(textarea) {
+            let sisa = 300 - textarea.value.length;
+            document.getElementById('charCount').innerText = `${sisa} karakter tersisa`;
+        }
+
+        function tambahDebiturKeDaftar() {
+            daftarDebitur.push({
+                waktu: currentWaktu,
+                nasabah: document.getElementById('nasabahName').value,
+                rekening: document.getElementById('noRekening').value,
+                plafon: document.getElementById('plafon').value,
+                outstanding: document.getElementById('outstanding').value,
+                alasan: document.getElementById('alasan').value,
+                deskripsi: document.getElementById('deskripsi').value
+            });
+
+            renderTabelDebitur();
+            document.getElementById('debiturForm').reset();
+            document.getElementById('charCount').innerText = "300 karakter tersisa";
+        }
+
+        function hapusDebitur(index) {
+            daftarDebitur.splice(index, 1);
+            renderTabelDebitur();
+        }
+
+        function renderTabelDebitur() {
+            const tbody = document.getElementById('debiturTableBody');
+            tbody.innerHTML = "";
+
+            if (daftarDebitur.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="8" class="text-center py-8 text-slate-400 italic bg-slate-50/30">Belum ada data debitur dimasukkan.</td></tr>`;
+                return;
+            }
+
+            daftarDebitur.forEach((item, index) => {
+                let badgeStyle = item.alasan === "Usaha Menurun" ? "bg-blue-50 text-blue-700 border-blue-100" : (item.alasan === "KTS" ? "bg-amber-50 text-amber-700 border-amber-100" : "bg-slate-50 text-slate-700 border-slate-200");
+                
+                const tr = document.createElement('tr');
+                tr.className = "hover:bg-slate-50/50 transition-colors";
+                tr.innerHTML = `
+                    <td class="p-3 text-center text-slate-500 font-medium">${index + 1}</td>
+                    <td class="p-3 font-bold text-slate-800">${item.nasabah}</td>
+                    <td class="p-3 font-mono text-slate-600 tracking-wider">${item.rekening}</td>
+                    <td class="p-3 font-medium text-slate-700">Rp ${item.plafon}</td>
+                    <td class="p-3 font-medium text-slate-700">Rp ${item.outstanding}</td>
+                    <td class="p-3"><span class="${badgeStyle} text-[10px] font-bold px-2 py-0.5 rounded border uppercase tracking-wide">${item.alasan}</span></td>
+                    <td class="p-3 text-slate-500 max-w-[180px] break-all">${item.deskripsi}</td>
+                    <td class="p-3 text-center">
+                        <button type="button" onclick="hapusDebitur(${index})" class="bg-red-500 hover:bg-red-600 text-white font-bold px-2 py-1 rounded text-[10px] shadow-sm cursor-pointer transition transform active:scale-95">Hapus</button>
+                    </td>
+                `;
+                tbody.appendChild(tr);
+            });
+        }
+
+        function submitSemuaData() {
+            if (daftarDebitur.length === 0) {
+                alert("Daftar debitur masih kosong!");
+                return;
+            }
+
+            const btn = document.getElementById('submitBtn');
+            btn.innerText = "Mengirim " + daftarDebitur.length + " Data...";
+            btn.disabled = true;
+
+            const payload = {
+                pn: document.getElementById('personalNumber').value,
+                mantri: document.getElementById('mantriName').value,
+                unit: document.getElementById('unitName').value,
+                debiturList: daftarDebitur
+            };
+
+            fetch(SCRIPT_URL, {
+                method: 'POST',
+                mode: 'no-cors', 
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload)
+            })
+            .then(() => {
+                alert("Sukses! Seluruh " + daftarDebitur.length + " data debitur berhasil disimpan di Google Spreadsheet.");
+                daftarDebitur = [];
+                kembaliKeLogin();
+            })
+            .catch(error => {
+                alert("Terjadi kendala saat mengirim data bulk.");
+                console.error(error);
+            })
+            .finally(() => {
+                btn.innerText = "Submit Semua Data ke Spreadsheet";
+                btn.disabled = false;
+            });
+        }
+    </script>
 </body>
 </html>
