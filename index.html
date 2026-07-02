@@ -268,80 +268,80 @@
 </div>
 
 <script>
-    // Taruh URL Web App Google Apps Script Anda yang valid di sini
+    // URL Web App Google Apps Script Anda yang valid (Sudah diintegrasikan)
     const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzwCq-wPaLF-zEwhH9jHsUQOt2z7vVaQhofJFQAAgsPRkZUFE5FIFprFsol2hSk4apz/exec";
 
-    // Simulasi Basis Data Pengenal Mantri (Anda bisa tambah daftar PN di bawah ini)
+    // DATABASE MANTRI LENGKAP
     const databaseMantri = {
-        "00167380": { "nama": "REY HARIO JENTHARA": "unit": "JATIPURO" },
-"00202635": { "nama": "AHMAD SIDIQ": "unit": "JATIPURO" },
-"00211565": { "nama": "ADI ATMIKA FAISAL SATOSO": "unit": "JATIPURO" },
-"00236563": { "nama": "DICKI EKA PRASETYO": "unit": "JATIPURO" },
-"00337369": { "nama": "BAYU KURNIAWAN AJI": "unit": "JATIPURO" },
-"00344407": { "nama": "MEILINA FIKA RINANDA": "unit": "JATIPURO" },
-"00385705": { "nama": "ALAMSYAH FERI TARNANDO": "unit": "JATIPURO" },
-"00053729": { "nama": "ANDRIAN RUDIANTO": "unit": "JATIYOSO" },
-"00160259": { "nama": "ANGGIT WIBOWO": "unit": "JATIYOSO" },
-"00177223": { "nama": "ROHMAT WIDIANTO": "unit": "JATIYOSO" },
-"00190798": { "nama": "WAHYU DODY SHEPTIAN": "unit": "JATIYOSO" },
-"00251161": { "nama": "SIDIQ ROCHMADI": "unit": "JATIYOSO" },
-"00344227": { "nama": "DWI WIDYASWORO": "unit": "JATIYOSO" },
-"00128200": { "nama": "DOSI ANDRIAS": "unit": "JUMANTONO" },
-"00161932": { "nama": "SEPTIN SURYANI": "unit": "JUMANTONO" },
-"00202651": { "nama": "RONI KUSNANTO": "unit": "JUMANTONO" },
-"00202655": { "nama": "ANITA YANUARI": "unit": "JUMANTONO" },
-"00236559": { "nama": "YUANNIDA YOLANDA SAPUTRI": "unit": "JUMANTONO" },
-"00337365": { "nama": "WAHYU CATUR TRIYONO": "unit": "JUMANTONO" },
-"00383932": { "nama": "BAMBANG SETIYAWAN": "unit": "JUMANTONO" },
-"00384838": { "nama": "DENI SETYAWAN": "unit": "JUMANTONO" },
-"00393162": { "nama": "PERDANA YULIAN": "unit": "JUMANTONO" },
-"00053736": { "nama": "HENDRAWAN BUDHI MULYATMO": "unit": "JUMAPOLO" },
-"00122323": { "nama": "ADI NUR ROCHIM": "unit": "JUMAPOLO" },
-"00191516": { "nama": "FEBRIANA MURTININGSIH": "unit": "JUMAPOLO" },
-"00224313": { "nama": "DAHLIA EKOWATI": "unit": "JUMAPOLO" },
-"00344230": { "nama": "INDRI SULISTYAWATI": "unit": "JUMAPOLO" },
-"00383934": { "nama": "ARI PURNAMA AGUNG": "unit": "JUMAPOLO" },
-"00398791": { "nama": "HASNAN HABIBIE": "unit": "JUMAPOLO" },
-"00061753": { "nama": "ENDAH PRANANDARI": "unit": "KARANGPANDAN" },
-"00167712": { "nama": "DIDIET ADITYO": "unit": "KARANGPANDAN" },
-"00177221": { "nama": "BONUS WIBOWO BRAM HARTYO": "unit": "KARANGPANDAN" },
-"00190825": { "nama": "SUTARKO": "unit": "KARANGPANDAN" },
-"00251157": { "nama": "UTAMI NUR DEWATI": "unit": "KARANGPANDAN" },
-"00337370": { "nama": "ANDIK SAPUTRA": "unit": "KARANGPANDAN" },
-"00356139": { "nama": "SEPTA HAYUMA MAULA": "unit": "KARANGPANDAN" },
-"00160208": { "nama": "ARI PRIHATIN CAHYO WIBOWO": "unit": "MATESIH" },
-"00160254": { "nama": "HUSYAIN RIFAI": "unit": "MATESIH" },
-"00167385": { "nama": "FAJAR NUGROHO BUDI HASTO": "unit": "MATESIH" },
-"00191515": { "nama": "ARIF SETIAWAN": "unit": "MATESIH" },
-"00236556": { "nama": "RESPATI WAHYU BASKARA": "unit": "MATESIH" },
-"00248396": { "nama": "ANTAWENI MAULIDHA PANGESTU RAH": "unit": "MATESIH" },
-"00259896": { "nama": "FARID ZAINAL ARIFIN": "unit": "MATESIH" },
-"00402623": { "nama": "LUY FIKRI HANAFI": "unit": "MATESIH" },
-"00089192": { "nama": "RIZA DAMAYANTI": "unit": "MOJOLABAN" },
-"00122142": { "nama": "NOVE AGUNG PRASETYO": "unit": "MOJOLABAN" },
-"00138383": { "nama": "JENDRAWAN BHAKTI NAGRI": "unit": "MOJOLABAN" },
-"00152435": { "nama": "IGNATIUS SIGIT NUGROHO": "unit": "MOJOLABAN" },
-"00160207": { "nama": "TRI MARGONO": "unit": "MOJOLABAN" },
-"00191511": { "nama": "ANDIKA PRATAMA": "unit": "MOJOLABAN" },
-"00202647": { "nama": "IDAM CAHYO NUGROHO": "unit": "MOJOLABAN" },
-"00202678": { "nama": "INEKE FEBRIANA HERMAWATI": "unit": "MOJOLABAN" },
-"00290338": { "nama": "VITA ASTARINA": "unit": "MOJOLABAN" },
-"00384840": { "nama": "NIKITA EPRILIAN PANGESTU": "unit": "MOJOLABAN" },
-"00236554": { "nama": "RIFQI BAGUS SATRIA": "unit": "NGADILUWIH" },
-"00251158": { "nama": "INDRA GUNAWAN": "unit": "NGADILUWIH" },
-"00404252": { "nama": "NURUL AISYAH PURNAMA PUTRI": "unit": "NGADILUWIH" },
-"00059145": { "nama": "EKO PUDJI WIDODO": "unit": "TAWANGMANGU" },
-"00167392": { "nama": "MAHARDIKA PERMANA PUTRA": "unit": "TAWANGMANGU" },
-"00180997": { "nama": "MUHAMAD ALEX TAUFIK": "unit": "TAWANGMANGU" },
-"00191514": { "nama": "DIAZ USRIANINDYA SULISTIANTO": "unit": "TAWANGMANGU" },
-"00202641": { "nama": "GHULAM CHALIMI": "unit": "TAWANGMANGU" },
-"00202648": { "nama": "IWAN KURNIAWAN": "unit": "TAWANGMANGU" },
-"00248135": { "nama": "SUTRISNO": "unit": "TAWANGMANGU" },
-"00344233": { "nama": "WINNA KARFINNA": "unit": "TAWANGMANGU" },
-"00383931": { "nama": "DEWI KURNIAWATI": "unit": "TAWANGMANGU" },
+        "00167380": { nama: "REY HARIO JENTHARA", unit: "JATIPURO" },
+        "00202635": { nama: "AHMAD SIDIQ", unit: "JATIPURO" },
+        "00211565": { nama: "ADI ATMIKA FAISAL SATOSO", unit: "JATIPURO" },
+        "00236563": { nama: "DICKI EKA PRASETYO", unit: "JATIPURO" },
+        "00337369": { nama: "BAYU KURNIAWAN AJI", unit: "JATIPURO" },
+        "00344407": { nama: "MEILINA FIKA RINANDA", unit: "JATIPURO" },
+        "00385705": { nama: "ALAMSYAH FERI TARNANDO", unit: "JATIPURO" },
+        "00053729": { nama: "ANDRIAN RUDIANTO", unit: "JATIYOSO" },
+        "00160259": { nama: "ANGGIT WIBOWO", unit: "JATIYOSO" },
+        "00177223": { nama: "ROHMAT WIDIANTO", unit: "JATIYOSO" },
+        "00190798": { nama: "WAHYU DODY SHEPTIAN", unit: "JATIYOSO" },
+        "00251161": { nama: "SIDIQ ROCHMADI", unit: "JATIYOSO" },
+        "00344227": { nama: "DWI WIDYASWORO", unit: "JATIYOSO" },
+        "00128200": { nama: "DOSI ANDRIAS", unit: "JUMANTONO" },
+        "00161932": { nama: "SEPTIN SURYANI", unit: "JUMANTONO" },
+        "00202651": { nama: "RONI KUSNANTO", unit: "JUMANTONO" },
+        "00202655": { nama: "ANITA YANUARI", unit: "JUMANTONO" },
+        "00236559": { nama: "YUANNIDA YOLANDA SAPUTRI", unit: "JUMANTONO" },
+        "00337365": { nama: "WAHYU CATUR TRIYONO", unit: "JUMANTONO" },
+        "00383932": { nama: "BAMBANG SETIYAWAN", unit: "JUMANTONO" },
+        "00384838": { nama: "DENI SETYAWAN", unit: "JUMANTONO" },
+        "00393162": { nama: "PERDANA YULIAN", unit: "JUMANTONO" },
+        "00053736": { nama: "HENDRAWAN BUDI MULYATMO", unit: "JUMAPOLO" },
+        "00122323": { nama: "ADI NUR ROCHIM", unit: "JUMAPOLO" },
+        "00191516": { nama: "FEBRIANA MURTININGSIH", unit: "JUMAPOLO" },
+        "00224313": { nama: "DAHLIA EKOWATI", unit: "JUMAPOLO" },
+        "00344230": { nama: "INDRI SULISTYAWATI", unit: "JUMAPOLO" },
+        "00383934": { nama: "ARI PURNAMA AGUNG", unit: "JUMAPOLO" },
+        "00398791": { nama: "HASNAN HABIBIE", unit: "JUMAPOLO" },
+        "00061753": { nama: "ENDAH PRANANDARI", unit: "KARANGPANDAN" },
+        "00167712": { nama: "DIDIET ADITYO", unit: "KARANGPANDAN" },
+        "00177221": { nama: "BONUS WIBOWO BRAM HARTYO", unit: "KARANGPANDAN" },
+        "00190825": { nama: "SUTARKO", unit: "KARANGPANDAN" },
+        "00251157": { nama: "UTAMI NUR DEWATI", unit: "KARANGPANDAN" },
+        "00337370": { nama: "ANDIK SAPUTRA", unit: "KARANGPANDAN" },
+        "00356139": { nama: "SEPTA HAYUMA MAULA", unit: "KARANGPANDAN" },
+        "00160208": { nama: "ARI PRIHATIN CAHYO WIBOWO", unit: "MATESIH" },
+        "00160254": { nama: "HUSYAIN RIFAI", unit: "MATESIH" },
+        "00167385": { nama: "FAJAR NUGROHO BUDI HASTO", unit: "MATESIH" },
+        "00191515": { nama: "ARIF SETIAWAN", unit: "MATESIH" },
+        "00236556": { nama: "RESPATI WAHYU BASKARA", unit: "MATESIH" },
+        "00248396": { nama: "ANTAWENI MAULIDHA PANGESTU RAH", unit: "MATESIH" },
+        "00259896": { nama: "FARID ZAINAL ARIFIN", unit: "MATESIH" },
+        "00402623": { nama: "LUY FIKRI HANAFI", unit: "MATESIH" },
+        "00089192": { nama: "RIZA DAMAYANTI", unit: "MOJOLABAN" },
+        "00122142": { nama: "NOVE AGUNG PRASETYO", unit: "MOJOLABAN" },
+        "00138383": { nama: "JENDRAWAN BHAKTI NAGRI", unit: "MOJOLABAN" },
+        "00152435": { nama: "IGNATIUS SIGIT NUGROHO", unit: "MOJOLABAN" },
+        "00160207": { nama: "TRI MARGONO", unit: "MOJOLABAN" },
+        "00191511": { nama: "ANDIKA PRATAMA", unit: "MOJOLABAN" },
+        "00202647": { nama: "IDAM CAHYO NUGROHO", unit: "MOJOLABAN" },
+        "00202678": { nama: "INEKE FEBRIANA HERMAWATI", unit: "MOJOLABAN" },
+        "00290338": { nama: "VITA ASTARINA", unit: "MOJOLABAN" },
+        "00384840": { nama: "NIKITA EPRILIAN PANGESTU", unit: "MOJOLABAN" },
+        "00236554": { nama: "RIFQI BAGUS SATRIA", unit: "NGADILUWIH" },
+        "00251158": { nama: "INDRA GUNAWAN", unit: "NGADILUWIH" },
+        "00404252": { nama: "NURUL AISYAH PURNAMA PUTRI", unit: "NGADILUWIH" },
+        "00059145": { nama: "EKO PUDJI WIDODO", unit: "TAWANGMANGU" },
+        "00167392": { nama: "MAHARDIKA PERMANA PUTRA", unit: "TAWANGMANGU" },
+        "00180997": { nama: "MUHAMAD ALEX TAUFIK", unit: "TAWANGMANGU" },
+        "00191514": { nama: "DIAZ USRIANINDYA SULISTIANTO", unit: "TAWANGMANGU" },
+        "00202641": { nama: "GHULAM CHALIMI", unit: "TAWANGMANGU" },
+        "00202648": { nama: "IWAN KURNIAWAN", unit: "TAWANGMANGU" },
+        "00248135": { nama: "SUTRISNO", unit: "TAWANGMANGU" },
+        "00344233": { nama: "WINNA KARFINNA", unit: "TAWANGMANGU" },
+        "00383931": { nama: "DEWI KURNIAWATI", unit: "TAWANGMANGU" }
     };
 
-    // 1. Logika Waktu & Jam Sinkronisasi Internet/Sistem Real-time
+    // 1. Logika Waktu & Jam Sinkronisasi Sistem Real-time
     function updateClock() {
         const sekarang = new Date();
         const opsi = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
@@ -351,7 +351,6 @@
         const waktuSkrg = `${tanggalStr} | ${jamStr} WIB`;
         document.getElementById('liveClock').innerText = waktuSkrg;
         
-        // Perbarui pula label waktu di bilah kanan preview jika sedang aktif
         if(!document.getElementById('pageWorkspace').classList.contains('hidden')){
             document.getElementById('pWaktu').innerText = waktuSkrg;
         }
@@ -380,7 +379,6 @@
         document.getElementById('pageLogin').classList.add('hidden');
         document.getElementById('pageWorkspace').classList.remove('hidden');
         
-        // Pindahkan data awal identitas mantri ke kartu preview kanan
         document.getElementById('pMantri').innerText = `${document.getElementById('personalNumber').value} / ${document.getElementById('mantriName').value}`;
         document.getElementById('pUnit').innerText = document.getElementById('unitName').value;
     }
@@ -395,7 +393,7 @@
         document.getElementById('debiturForm').reset();
         document.getElementById('personalNumber').value = "";
         document.getElementById('dataOtomatisPN').classList.add('hidden');
-        liveUpdatePreview(); // Bersihkan preview kanan kembali menjadi "-"
+        liveUpdatePreview();
     }
 
     // 4. Transformasi Format Titik Pemisah Ribuan
@@ -419,7 +417,6 @@
         document.getElementById('pAlasan').innerText = document.getElementById('alasan').value || "-";
         document.getElementById('pDeskripsi').innerText = document.getElementById('deskripsi').value || "-";
 
-        // Perhitungan batasan teks deskripsi maks 300 huruf
         let sisa = 300 - document.getElementById('deskripsi').value.length;
         document.getElementById('charCount').innerText = `${sisa} karakter tersisa`;
     }
